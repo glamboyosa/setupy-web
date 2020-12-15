@@ -25,7 +25,7 @@ function Home() {
           url:
             process.env.NODE_ENV === 'development'
               ? 'http://localhost:3000/'
-              : 'https://setupy-web.vercel.app',
+              : 'https://setupy-web.vercel.app/',
           title: 'Setupy 🔥',
           images: [
             {
