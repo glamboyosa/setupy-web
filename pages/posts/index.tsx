@@ -227,4 +227,4 @@ const Posts = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Posts);
+export default withApollo({ ssr: false })(Posts);
