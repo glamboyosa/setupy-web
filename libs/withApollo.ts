@@ -3,15 +3,15 @@ import { createUploadLink } from 'apollo-upload-client';
 import { withApollo } from 'next-apollo';
 const link = createUploadLink({
   uri:
-    process.env.NODE_ENV === 'development'
+    process.env.NODE_ENV !== 'development'
       ? 'http://localhost:8000/graphql'
-      : 'https://setupy-api.herokuapp.com/graphql',
+      : 'http://setupy-api.herokuapp.com/graphql',
 });
 const apolloClient = new ApolloClient({
   uri:
-    process.env.NODE_ENV === 'development'
+    process.env.NODE_ENV !== 'development'
       ? 'http://localhost:8000/graphql'
-      : 'https://setupy-api.vercel.app/graphql',
+      : 'http://setupy-api.herokuapp.com/graphql',
   cache: new InMemoryCache(),
   credentials: 'include',
 });

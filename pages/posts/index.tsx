@@ -116,7 +116,9 @@ const Posts = () => {
   if (voteData?.VotePost === null) {
     notify('there was a problem voting please try again', 'error');
   }
-
+  if (error) {
+    console.log(error);
+  }
   return (
     <>
       <Head>

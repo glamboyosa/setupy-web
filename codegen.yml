@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'http://localhost:8000/graphql'
+schema: 'http://setupy-api.herokuapp.com/graphql'
 documents: './**/*.graphql'
 generates:
   generated/graphql.tsx:

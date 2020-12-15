@@ -16,10 +16,10 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
-  Me?: Maybe<UserResponse>;
   GetPostById: PostsResponse;
   GetPosts: PostsResponse;
   GetPostsByUser: PostsResponse;
+  Me?: Maybe<UserResponse>;
 };
 
 
@@ -32,29 +32,16 @@ export type QueryGetPostsByUserArgs = {
   username: Scalars['String'];
 };
 
-export type UserResponse = {
-  __typename?: 'UserResponse';
-  error?: Maybe<Error>;
-  user?: Maybe<User>;
-};
-
-export type Error = {
-  __typename?: 'Error';
-  message: Scalars['String'];
-};
-
-export type User = {
-  __typename?: 'User';
-  id: Scalars['Int'];
-  email: Scalars['String'];
-  username: Scalars['String'];
-};
-
 export type PostsResponse = {
   __typename?: 'PostsResponse';
   error?: Maybe<Error>;
   posts?: Maybe<Array<Posts>>;
   post?: Maybe<Posts>;
+};
+
+export type Error = {
+  __typename?: 'Error';
+  message: Scalars['String'];
 };
 
 export type Posts = {
@@ -66,15 +53,41 @@ export type Posts = {
   votes: Scalars['Float'];
 };
 
+export type UserResponse = {
+  __typename?: 'UserResponse';
+  error?: Maybe<Error>;
+  user?: Maybe<User>;
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['Int'];
+  email: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  CreatePosts: PostsResponse;
+  VotePost?: Maybe<Scalars['Boolean']>;
   Register?: Maybe<Scalars['Boolean']>;
   Login: UserResponse;
   Logout: Scalars['Boolean'];
   ForgotPassword?: Maybe<Scalars['Boolean']>;
   ChangePassword?: Maybe<Scalars['Boolean']>;
-  CreatePosts: PostsResponse;
-  VotePost?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type MutationCreatePostsArgs = {
+  username: Scalars['String'];
+  description: Scalars['String'];
+  picture: Scalars['String'];
+};
+
+
+export type MutationVotePostArgs = {
+  type: Scalars['String'];
+  id: Scalars['Float'];
 };
 
 
@@ -97,19 +110,6 @@ export type MutationForgotPasswordArgs = {
 export type MutationChangePasswordArgs = {
   newPassword: Scalars['String'];
   token: Scalars['String'];
-};
-
-
-export type MutationCreatePostsArgs = {
-  username: Scalars['String'];
-  description: Scalars['String'];
-  picture: Scalars['String'];
-};
-
-
-export type MutationVotePostArgs = {
-  type: Scalars['String'];
-  id: Scalars['Float'];
 };
 
 export type UserInput = {
