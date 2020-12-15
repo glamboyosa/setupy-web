@@ -5,6 +5,11 @@ export const ButtonsParent = styled.div`
     font-family: inherit;
     cursor: pointer;
   }
+  @media only screen and (max-width: 830px) {
+    & {
+      margin-left: -7.5rem;
+    }
+  }
 `;
 export const SecondaryButton = styled.button`
   padding: 1rem 3rem;

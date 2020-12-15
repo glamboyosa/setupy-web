@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import LiftOff from '../assets/lift-off.gif';
+import LiftOff from '../assets/rocketr.png';
 export const Header = styled.header`
   height: 100vh;
   background-image: url(${LiftOff});

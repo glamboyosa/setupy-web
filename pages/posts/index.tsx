@@ -58,7 +58,7 @@ const Posts = () => {
       await navigator.share({
         title: 'Setupy - Posts🔥',
         text: 'Check out this sweet setup',
-        url: `https://setupy.vercel.app/posts/${username}/${id}`,
+        url: `https://setupy-web.vercel.app/posts/${username}/${id}`,
       });
     } catch (e) {
       setWebShareError("Oops. Sharing isn't supported in your browser");
@@ -130,7 +130,7 @@ const Posts = () => {
           url:
             process.env.NODE_ENV === 'development'
               ? 'http://localhost:3000/posts'
-              : 'https://setupy.vercel.app/posts',
+              : 'https://setupy-web.vercel.app/posts',
           title: 'Setupy - Posts🔥',
           images: [
             {
