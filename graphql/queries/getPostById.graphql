@@ -1,0 +1,10 @@
+query GetPostById($id: Float!) {
+  GetPostById(id: $id) {
+    error {
+      message
+    }
+    post {
+      ...Post
+    }
+  }
+}

@@ -1,0 +1,10 @@
+query GetPostsByUser($username: String!) {
+  GetPostsByUser(username: $username) {
+    error {
+      message
+    }
+    posts {
+      ...Post
+    }
+  }
+}

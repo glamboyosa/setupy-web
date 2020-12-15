@@ -1,0 +1,18 @@
+mutation CreatePost(
+  $picture: String!
+  $description: String!
+  $username: String!
+) {
+  CreatePosts(
+    picture: $picture
+    description: $description
+    username: $username
+  ) {
+    error {
+      message
+    }
+    post {
+      ...Post
+    }
+  }
+}

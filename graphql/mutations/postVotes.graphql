@@ -1,0 +1,3 @@
+mutation VotePost($id: Float!, $type: String!) {
+  VotePost(id: $id, type: $type)
+}

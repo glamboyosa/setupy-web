@@ -1,0 +1,7 @@
+fragment Post on Posts {
+  id
+  description
+  photoPath
+  votes
+  username
+}

@@ -1,0 +1,10 @@
+query GetPosts {
+  GetPosts {
+    error {
+      message
+    }
+    posts {
+      ...Post
+    }
+  }
+}
