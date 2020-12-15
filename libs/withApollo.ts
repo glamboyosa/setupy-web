@@ -5,7 +5,7 @@ const apolloClient = new ApolloClient({
   uri:
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:8000/graphql'
-      : 'http://setupy-api.herokuapp.com/graphql',
+      : 'https://setupy-api.herokuapp.com/graphql',
   cache: new InMemoryCache(),
   credentials: 'include',
 });
