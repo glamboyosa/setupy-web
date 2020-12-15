@@ -35,7 +35,7 @@ const Posts = () => {
   const [webShareError, setWebShareError] = useState<string | null>(null);
   const [logoutMutation, { data: logoutData, loading }] = useLogoutMutation();
   const { data, refetch, error } = useGetPostsQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
   const { data: meData } = useMeQuery({ fetchPolicy: 'cache-and-network' });
   const router = useRouter();
