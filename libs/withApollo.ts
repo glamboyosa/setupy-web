@@ -5,7 +5,7 @@ const link = createUploadLink({
   uri:
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:8000/graphql'
-      : 'https://setupy-api.heroku.app/graphql',
+      : 'https://setupy-api.herokuapp.com/graphql',
 });
 const apolloClient = new ApolloClient({
   uri:
