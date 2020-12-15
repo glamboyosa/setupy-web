@@ -35,7 +35,7 @@ const Posts = () => {
   const [webShareError, setWebShareError] = useState<string | null>(null);
   const [logoutMutation, { data: logoutData, loading }] = useLogoutMutation();
   const { data, refetch, error } = useGetPostsQuery({
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'network-only',
   });
   const { data: meData } = useMeQuery({ fetchPolicy: 'cache-and-network' });
   const router = useRouter();
@@ -227,4 +227,4 @@ const Posts = () => {
   );
 };
 
-export default withApollo({ ssr: false })(Posts);
+export default withApollo({ ssr: true })(Posts);
