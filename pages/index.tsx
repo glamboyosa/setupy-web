@@ -11,9 +11,12 @@ import {
   PrimaryHeading,
   SecondaryHeading,
 } from '../components/header.style';
+import { useHelloQuery } from '../generated/graphql';
 
 function Home() {
   const router = useRouter();
+  const { data } = useHelloQuery();
+  console.log(data);
   return (
     <>
       <Head>

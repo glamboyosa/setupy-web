@@ -4,27 +4,22 @@ export const Page = styled.div`
   background-color: var(--white-shade);
   position: relative;
 `;
-export const UpButton = styled.a`
+export const UpButton = styled.div`
   margin-top: 1rem;
   width: 0;
   height: 0;
   border-left: 2rem solid transparent;
   border-right: 2rem solid transparent;
-  border-bottom: 2rem solid #3a3b3c;
-  &:active {
-    border-bottom: 2rem solid
-      ${(props) => (props.spellCheck ? '#360ccc' : '#3a3b3c')};
-  }
+  border-bottom: 2rem solid
+    ${(props) => (props.spellCheck ? '#360ccc' : '##878a8c')};
 `;
-export const DownButton = styled.a`
+export const DownButton = styled.div`
   width: 0;
   height: 0;
   border-left: 2rem solid transparent;
   border-right: 2rem solid transparent;
-  border-top: 2rem solid #3a3b3c;
-  &:active {
-    border-top: 2rem solid ${(props) => (props.spellCheck ? '#f00' : '#3a3b3c')};
-  }
+  border-bottom: 2rem solid
+    ${(props) => (props.spellCheck ? '#f00' : '##878a8c')};
 `;
 export const CenterPosts = styled.div`
   display: flex;
@@ -42,7 +37,7 @@ export const Post = styled.div`
   width: auto;
   max-width: 50rem;
   background-color: var(--white);
-  box-shadow: 0.4rem 1rem 1rem var(--black);
+  box-shadow: 0.4rem .4rem .7rem var(--black);
 `;
 export const ShareButton = styled(IoMdShare)`
   font-size: 5rem;
