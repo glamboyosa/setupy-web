@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { NavButton } from '../../components/button.style';
@@ -14,25 +14,27 @@ import { LinkToPages } from '../../components/links.style';
 import { Input, Label, Nav, NavItems } from '../../components/nav.style';
 import {
   CenterPosts,
+  DownButton,
   EitherSideofPost,
   Image,
   MarginTopImage,
   Page,
   Post,
+  UpButton,
 } from '../../components/posts.style';
 import SVG from '../../components/svg';
 import {
   useGetPostsQuery,
   useLogoutMutation,
   useMeQuery,
-  useVotePostMutation,
+  useCreateVotesMutation,
 } from '../../generated/graphql';
+import { aggregatePosts } from '../../libs/aggregateVotes';
 import { Context } from '../../libs/userProvider';
 import withApollo from '../../libs/withApollo';
 const Posts = () => {
   const [spellCheckk, setSpellCheck] = useState(false);
-  const [upvoteColor, setUpvoteColor] = useState(false);
-  const [downvoteColor, setDownvoteColor] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
   const [webShareError, setWebShareError] = useState<string | null>(null);
   const [logoutMutation, { data: logoutData, loading }] = useLogoutMutation();
   const { data, refetch, error } = useGetPostsQuery({
@@ -42,11 +44,11 @@ const Posts = () => {
   const router = useRouter();
   const { user, setUserHandler } = useContext(Context);
   const [
-    postMutation,
+    voteMutation,
     { data: voteData, loading: voteLoading },
-  ] = useVotePostMutation();
+  ] = useCreateVotesMutation();
   useEffect(() => {
-    if (voteData?.VotePost) {
+    if (voteData?.CreateVotes) {
       refetch();
       notify('successful. how about sharing the post ? 😉', 'success');
     }
@@ -65,7 +67,9 @@ const Posts = () => {
       setWebShareError("Oops. Sharing isn't supported in your browser");
     }
   };
-
+  const votesHandler = (id: number, vote: 'upvote' | 'downvote') => {
+    voteMutation({ variables: { postsId: id, type: vote } });
+  };
   if (meData?.Me?.user) {
     setUserHandler(meData.Me.user);
   }
@@ -102,7 +106,7 @@ const Posts = () => {
     notify(webShareError, 'error');
     setWebShareError(null);
   }
-  if (voteData?.VotePost === null) {
+  if (voteData?.CreateVotes === null) {
     notify('there was a problem voting please try again', 'error');
   }
   if (error) {
@@ -181,8 +185,27 @@ const Posts = () => {
             data!.GetPosts!.posts!.map((el) => (
               <Post key={el.id}>
                 <EitherSideofPost>
+                  <UpButton
+                    ref={ref}
+                    spellCheck={false}
+                    onClick={() => votesHandler(el.id, 'upvote')}
+                  />
+                  <div
+                    style={{
+                      marginTop: '1rem',
+                      marginBottom: '1rem',
+                      fontSize: '1.5rem',
+                    }}
+                  >
+                    {aggregatePosts(el.votes)}
+                  </div>
+                  <DownButton
+                    ref={ref}
+                    spellCheck={false}
+                    onClick={() => votesHandler(el.id, 'downvote')}
+                  />
                   <NavButton
-                    onClick={() => webShareHandler(el.id, el.username)}
+                    onClick={() => webShareHandler(el.id, el.user.username)}
                   >
                     Share Post
                   </NavButton>
@@ -192,8 +215,8 @@ const Posts = () => {
                     <Image src={el.photoPath} width='auto' height='auto' />
                   </MarginTopImage>
                   <SecondaryHeading>{el.description}</SecondaryHeading>
-                  <Link href={`/posts/${el.username}`}>
-                    <LinkToPages>post by {el.username}</LinkToPages>
+                  <Link href={`/posts/${el.user.username}`}>
+                    <LinkToPages>post by {el.user.username}</LinkToPages>
                   </Link>
                 </EitherSideofPost>
               </Post>

@@ -2,6 +2,13 @@ fragment Post on Posts {
   id
   description
   photoPath
-  votes
-  username
+  votes {
+    id
+    type
+  }
+  user {
+    email
+    id
+    username
+  }
 }

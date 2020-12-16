@@ -23,7 +23,8 @@ const PostById = () => {
   const [webShareError, setWebShareError] = useState<string | null>(null);
   const { id: userId } = router.query;
   const id = parseInt(userId as string);
-  const { data, loading } = useGetPostByIdQuery({ variables: { id } });
+  const { data, loading, error } = useGetPostByIdQuery({ variables: { id } });
+
   const webShareHandler = async (id: number, username: string) => {
     try {
       await navigator.share({
@@ -75,7 +76,7 @@ const PostById = () => {
                   onClick={() =>
                     webShareHandler(
                       data!.GetPostById!.post!.id,
-                      data!.GetPostById!.post!.username
+                      data!.GetPostById!.post!.user.username
                     )
                   }
                 >
@@ -93,7 +94,7 @@ const PostById = () => {
                 <SecondaryHeading>
                   {data.GetPostById.post.description}
                 </SecondaryHeading>
-                <Link href={`/posts/${data.GetPostById.post.username}`}>
+                <Link href={`/posts/${data.GetPostById.post.user.username}`}>
                   <LinkToPages>post by glamboyosa</LinkToPages>
                 </Link>
               </EitherSideofPost>

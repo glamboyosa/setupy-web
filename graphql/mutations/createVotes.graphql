@@ -1,0 +1,3 @@
+mutation CreateVotes($postsId: Float!, $type: String!) {
+  CreateVotes(postsId: $postsId, type: $type)
+}

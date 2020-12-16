@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { NavButton } from '../../../components/button.style';
@@ -33,7 +33,7 @@ const PostsByUser = () => {
   const [logoutMutation, { loading }] = useLogoutMutation();
   const router = useRouter();
   const { username } = router.query;
-  const { data } = useGetPostsByUserQuery({
+  const { data, loading: getPostsByUsernameLoading } = useGetPostsByUserQuery({
     variables: { username: username as string },
   });
   const { user, setUserHandler } = useContext(Context);
@@ -41,7 +41,7 @@ const PostsByUser = () => {
     logoutMutation();
     setUserHandler(null);
   };
-  const webShareHandler = async (id: number, username: string) => {
+  const webShareHandler = async (id: number) => {
     try {
       await navigator.share({
         title: 'Setupy - Posts🔥',
@@ -66,6 +66,9 @@ const PostsByUser = () => {
   if (webShareError) {
     notify(webShareError);
   }
+  console.log(data);
+  console.log(getPostsByUsernameLoading);
+
   return (
     <>
       <Head>
@@ -134,14 +137,12 @@ const PostsByUser = () => {
         <CenterPosts>
           <PrimaryHeading>See the hottest posts 🔥</PrimaryHeading>
         </CenterPosts>
-        {data && !loading ? (
+        {data?.GetPostsByUser && !getPostsByUsernameLoading ? (
           data!.GetPostsByUser!.posts!.map((el) => (
             <CenterPosts>
               <Post>
                 <EitherSideofPost>
-                  <NavButton
-                    onClick={() => webShareHandler(el.id, el.username)}
-                  >
+                  <NavButton onClick={() => webShareHandler(el.id)}>
                     Share Post
                   </NavButton>
                 </EitherSideofPost>
@@ -150,7 +151,7 @@ const PostsByUser = () => {
                     <Image src={el.photoPath} width='auto' height='auto' />
                   </MarginTopImage>
                   <SecondaryHeading>{el.description}</SecondaryHeading>
-                  <Link href={`/posts/${el.username}`}>
+                  <Link href={`/posts/${username}`}>
                     <LinkToPages>post by glamboyosa</LinkToPages>
                   </Link>
                 </EitherSideofPost>

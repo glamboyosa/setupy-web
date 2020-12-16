@@ -4,7 +4,9 @@ query GetPostsByUser($username: String!) {
       message
     }
     posts {
-      ...Post
+      id
+      description
+      photoPath
     }
   }
 }
