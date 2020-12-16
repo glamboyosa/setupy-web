@@ -89,10 +89,19 @@ const Login = ({
           onChange={(e) => setPassword(e.target.value)}
         />
         <ButtonsParent>
-          <PrimaryButton disabled={loading} onClick={submitHandler}>
+          <PrimaryButton
+            style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
+            disabled={loading}
+            onClick={submitHandler}
+          >
             Let's Go
           </PrimaryButton>
-          <SecondaryButton disabled={loading}>Let's Go</SecondaryButton>
+          <SecondaryButton
+            style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
+            disabled={loading}
+          >
+            Let's Go
+          </SecondaryButton>
         </ButtonsParent>
         <Link href='/register'>
           <LinkToPages>Don't have an account? Sign up.</LinkToPages>

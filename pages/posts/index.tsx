@@ -20,6 +20,7 @@ import {
   Page,
   Post,
 } from '../../components/posts.style';
+import SVG from '../../components/svg';
 import {
   useGetPostsQuery,
   useLogoutMutation,
@@ -144,7 +145,9 @@ const Posts = () => {
       <Page>
         <Nav spellCheck={spellCheckk}>
           <Link href='/'>
-            <SecondaryHeading style={{ whiteSpace: 'nowrap' }}>
+            <SecondaryHeading
+              style={{ whiteSpace: 'nowrap', cursor: 'pointer' }}
+            >
               Setupy🔥
             </SecondaryHeading>
           </Link>
@@ -196,7 +199,9 @@ const Posts = () => {
               </Post>
             ))
           ) : (
-            <CenterPosts></CenterPosts>
+            <CenterPosts>
+              <SVG />
+            </CenterPosts>
           )}
         </CenterPosts>
       </Page>
