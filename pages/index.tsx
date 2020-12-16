@@ -12,7 +12,7 @@ import {
   SecondaryHeading,
 } from '../components/header.style';
 import { useHelloQuery } from '../generated/graphql';
-
+import withApollo from '../libs/withApollo';
 function Home() {
   const router = useRouter();
   const { data } = useHelloQuery();
@@ -56,4 +56,4 @@ function Home() {
     </>
   );
 }
-export default Home;
+export default withApollo({ ssr: true })(Home);
