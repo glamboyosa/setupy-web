@@ -64,19 +64,7 @@ const Posts = () => {
       setWebShareError("Oops. Sharing isn't supported in your browser");
     }
   };
-  const votesHandler = (id: number, type: 'upvote' | 'downvote') => {
-    if (type === 'upvote') {
-      setUpvoteColor(!upvoteColor);
-      setDownvoteColor(false);
 
-      postMutation({ variables: { id, type } });
-    } else if (type === 'downvote') {
-      setDownvoteColor(!downvoteColor);
-      setUpvoteColor(false);
-
-      postMutation({ variables: { id, type } });
-    }
-  };
   if (meData?.Me?.user) {
     setUserHandler(meData.Me.user);
   }
@@ -190,17 +178,6 @@ const Posts = () => {
             data!.GetPosts!.posts!.map((el) => (
               <Post key={el.id}>
                 <EitherSideofPost>
-                  {/* <UpButton
-                    aria-disabled={voteLoading}
-                    onClick={() => votesHandler(el.id, 'upvote')}
-                    spellCheck={upvoteColor}
-                  />
-                  <div style={{ fontSize: '1.5rem' }}>{el.votes}</div>
-                  <DownButton
-                    aria-disabled={voteLoading}
-                    onClick={() => votesHandler(el.id, 'downvote')}
-                    spellCheck={downvoteColor}
-                  /> */}
                   <NavButton
                     onClick={() => webShareHandler(el.id, el.username)}
                   >
