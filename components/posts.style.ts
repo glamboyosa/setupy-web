@@ -45,8 +45,8 @@ export const CenterPosts = styled.div`
   }
   @media only screen and (max-width: 800px) {
     & > * {
-      margin-left: 1rem;
-      margin-right: 1rem;
+      margin-left: 1.3rem;
+      margin-right: 1.3rem;
     }
   }
 `;

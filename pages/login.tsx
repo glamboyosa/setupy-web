@@ -104,10 +104,14 @@ const Login = ({
           </SecondaryButton>
         </ButtonsParent>
         <Link href='/register'>
-          <LinkToPages>Don't have an account? Sign up.</LinkToPages>
+          <LinkToPages style={{ marginTop: '3rem' }}>
+            Don't have an account? Sign up.
+          </LinkToPages>
         </Link>
         <Link href='/forgot-password'>
-          <LinkToPages>Forgot password.</LinkToPages>
+          <LinkToPages style={{ marginTop: '1.5rem' }}>
+            Forgot password.
+          </LinkToPages>
         </Link>
       </CenterInputs>
     </>

@@ -96,7 +96,9 @@ const Uploads = () => {
                 You need to register & sign in to share your awesome setups :(
               </SecondaryHeading>
               <Link href='/login'>
-                <LinkToPages>Proceed to log in page.</LinkToPages>
+                <LinkToPages style={{ marginTop: '3rem' }}>
+                  Proceed to log in page.
+                </LinkToPages>
               </Link>
             </CenterInputs>
           ) : (

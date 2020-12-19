@@ -100,10 +100,14 @@ const Register = () => {
           </SecondaryButton>
         </ButtonsParent>
         <Link href='/login'>
-          <LinkToPages>Already have an account? Sign in.</LinkToPages>
+          <LinkToPages style={{ marginTop: '3rem' }}>
+            Already have an account? Sign in.
+          </LinkToPages>
         </Link>
         <Link href='/forgot-password'>
-          <LinkToPages>Forgot password.</LinkToPages>
+          <LinkToPages style={{ marginTop: '1.5rem' }}>
+            Forgot password.
+          </LinkToPages>
         </Link>
       </CenterInputs>
     </>
