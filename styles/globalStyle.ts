@@ -5,6 +5,7 @@ const globalStyle = createGlobalStyle`
   --black: #000000;
   --white: #ffffff;
   --int-blue: #360ccc;
+  --reddit-vote: #878a8c;
   
 }
 *, *::before, *::after {

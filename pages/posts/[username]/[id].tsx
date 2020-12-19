@@ -14,6 +14,7 @@ import {
   MarginTopImage,
   Page,
   Post,
+  ShareButton,
 } from '../../../components/posts.style';
 import SVG from '../../../components/svg';
 import { useGetPostByIdQuery } from '../../../generated/graphql';
@@ -72,36 +73,46 @@ const PostById = () => {
           {data?.GetPostById.post && !loading ? (
             <Post>
               <EitherSideofPost>
-                <NavButton
-                  onClick={() =>
-                    webShareHandler(
-                      data!.GetPostById!.post!.id,
-                      data!.GetPostById!.post!.user.username
-                    )
-                  }
-                >
-                  Share Post
-                </NavButton>
-              </EitherSideofPost>
-              <EitherSideofPost>
-                <MarginTopImage>
-                  <Image
-                    src={data.GetPostById.post.photoPath}
-                    width='auto'
-                    height='auto'
-                  />
-                </MarginTopImage>
                 <SecondaryHeading>
                   {data.GetPostById.post.description}
                 </SecondaryHeading>
-                <Link href={`/posts/${data.GetPostById.post.user.username}`}>
-                  <LinkToPages>post by glamboyosa</LinkToPages>
-                </Link>
+              </EitherSideofPost>
+              <MarginTopImage>
+                <Image src={data.GetPostById.post.photoPath} />
+              </MarginTopImage>
+              <EitherSideofPost>
+                <LinkToPages
+                  onClick={() =>
+                    router.push(
+                      `/posts/${data.GetPostById.post?.user.username}`
+                    )
+                  }
+                >
+                  post by {data.GetPostById.post.user.username}
+                </LinkToPages>
+
+                <NavButton
+                  style={{ backgroundColor: 'inherit' }}
+                  onClick={() =>
+                    webShareHandler(
+                      data.GetPostById.post!.id,
+                      data.GetPostById.post!.user.username
+                    )
+                  }
+                >
+                  <ShareButton /> Share Post
+                </NavButton>
               </EitherSideofPost>
             </Post>
           ) : (
             <SVG />
           )}
+          <LinkToPages
+            style={{ fontSize: '2rem' }}
+            onClick={() => router.push('/posts')}
+          >
+            See all posts
+          </LinkToPages>
         </CenterPosts>
       </Page>
     </>

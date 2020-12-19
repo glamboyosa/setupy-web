@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { NavButton } from '../../../components/button.style';
@@ -19,6 +19,7 @@ import {
   MarginTopImage,
   Page,
   Post,
+  ShareButton,
 } from '../../../components/posts.style';
 import SVG from '../../../components/svg';
 import {
@@ -140,20 +141,25 @@ const PostsByUser = () => {
         {data?.GetPostsByUser && !getPostsByUsernameLoading ? (
           data!.GetPostsByUser!.posts!.map((el) => (
             <CenterPosts>
-              <Post>
+              <Post key={el.id}>
                 <EitherSideofPost>
-                  <NavButton onClick={() => webShareHandler(el.id)}>
-                    Share Post
-                  </NavButton>
-                </EitherSideofPost>
-                <EitherSideofPost>
-                  <MarginTopImage>
-                    <Image src={el.photoPath} width='auto' height='auto' />
-                  </MarginTopImage>
                   <SecondaryHeading>{el.description}</SecondaryHeading>
-                  <Link href={`/posts/${username}`}>
-                    <LinkToPages>post by glamboyosa</LinkToPages>
-                  </Link>
+                </EitherSideofPost>
+                <MarginTopImage>
+                  <Image src={el.photoPath} />
+                </MarginTopImage>
+                <EitherSideofPost>
+                  <LinkToPages
+                    onClick={() => router.push(`/posts/${username}`)}
+                  >
+                    post by {username}
+                  </LinkToPages>
+                  <NavButton
+                    style={{ backgroundColor: 'inherit' }}
+                    onClick={() => webShareHandler(el.id)}
+                  >
+                    <ShareButton /> Share Post
+                  </NavButton>
                 </EitherSideofPost>
               </Post>
             </CenterPosts>
@@ -163,6 +169,14 @@ const PostsByUser = () => {
             <SVG />
           </CenterPosts>
         )}
+        <CenterPosts>
+          <LinkToPages
+            style={{ fontSize: '2rem' }}
+            onClick={() => router.push('/posts')}
+          >
+            See all posts
+          </LinkToPages>
+        </CenterPosts>
       </Page>
     </>
   );

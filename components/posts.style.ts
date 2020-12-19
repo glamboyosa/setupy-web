@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { IoMdShare } from 'react-icons/io';
+import { IoIosShareAlt, IoMdShare } from 'react-icons/io';
+import { GoArrowUp, GoArrowDown } from 'react-icons/go';
 export const Page = styled.div`
   background-color: var(--white-shade);
   position: relative;
@@ -13,6 +14,17 @@ export const UpButton = styled.div`
   cursor: pointer;
   border-bottom: 2rem solid
     ${(props) => (props.spellCheck ? '#360ccc' : '#878a8c')};
+`;
+export const RedditStyleUpVote = styled(GoArrowUp)`
+  font-size: 2rem;
+  color: var(--reddit-vote);
+  cursor: pointer;
+`;
+
+export const RedditStyleDownVote = styled(GoArrowDown)`
+  font-size: 2rem;
+  color: var(--reddit-vote);
+  cursor: pointer;
 `;
 export const DownButton = styled.div`
   width: 0;
@@ -36,33 +48,31 @@ export const Post = styled.div`
   display: flex;
   border-radius: 0.8rem;
   width: auto;
+  flex-direction: column;
   max-width: 50rem;
   background-color: var(--white);
   box-shadow: 0.4rem 0.4rem 0.7rem var(--black);
 `;
-export const ShareButton = styled(IoMdShare)`
-  font-size: 5rem;
+export const ShareButton = styled(IoIosShareAlt)`
+  font-size: 2rem;
+  color: var(--black);
 `;
 export const EitherSideofPost = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  background-color: var(--white);
+  justify-content: space-around;
   margin-right: 3rem;
   align-items: center;
-  &:first-of-type {
-    margin-left: 2rem;
-  }
+
   & > * {
     margin-bottom: 1.5rem;
   }
 `;
 export const MarginTopImage = styled.div`
-  margin-top: 2rem;
-  text-align: center;
+  width: 100%;
 `;
 
 export const Image = styled.img`
-  border-radius: 0.8rem;
   width: 100%;
   height: auto;
 `;

@@ -20,6 +20,9 @@ import {
   MarginTopImage,
   Page,
   Post,
+  RedditStyleDownVote,
+  RedditStyleUpVote,
+  ShareButton,
   UpButton,
 } from '../../components/posts.style';
 import SVG from '../../components/svg';
@@ -185,39 +188,37 @@ const Posts = () => {
             data!.GetPosts!.posts!.map((el) => (
               <Post key={el.id}>
                 <EitherSideofPost>
-                  <UpButton
-                    ref={ref}
-                    spellCheck={false}
+                  <SecondaryHeading>{el.description}</SecondaryHeading>
+                </EitherSideofPost>
+                <MarginTopImage>
+                  <Image src={el.photoPath} />
+                </MarginTopImage>
+                <EitherSideofPost>
+                  <LinkToPages
+                    onClick={() => router.push(`/posts/${el.user.username}`)}
+                  >
+                    post by {el.user.username}
+                  </LinkToPages>
+
+                  <RedditStyleUpVote
                     onClick={() => votesHandler(el.id, 'upvote')}
                   />
                   <div
                     style={{
-                      marginTop: '1rem',
-                      marginBottom: '1rem',
                       fontSize: '1.5rem',
                     }}
                   >
                     {aggregatePosts(el.votes)}
                   </div>
-                  <DownButton
-                    ref={ref}
-                    spellCheck={false}
+                  <RedditStyleDownVote
                     onClick={() => votesHandler(el.id, 'downvote')}
                   />
                   <NavButton
+                    style={{ backgroundColor: 'inherit' }}
                     onClick={() => webShareHandler(el.id, el.user.username)}
                   >
-                    Share Post
+                    <ShareButton /> Share Post
                   </NavButton>
-                </EitherSideofPost>
-                <EitherSideofPost>
-                  <MarginTopImage>
-                    <Image src={el.photoPath} width='auto' height='auto' />
-                  </MarginTopImage>
-                  <SecondaryHeading>{el.description}</SecondaryHeading>
-                  <Link href={`/posts/${el.user.username}`}>
-                    <LinkToPages>post by {el.user.username}</LinkToPages>
-                  </Link>
                 </EitherSideofPost>
               </Post>
             ))
