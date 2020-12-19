@@ -188,7 +188,11 @@ const Posts = () => {
             data!.GetPosts!.posts!.map((el) => (
               <Post key={el.id}>
                 <EitherSideofPost>
-                  <SecondaryHeading>{el.description}</SecondaryHeading>
+                  <SecondaryHeading
+                    style={{ marginLeft: '1rem', marginTop: '1rem' }}
+                  >
+                    {el.description}
+                  </SecondaryHeading>
                 </EitherSideofPost>
                 <MarginTopImage>
                   <Image src={el.photoPath} />

@@ -43,6 +43,12 @@ export const CenterPosts = styled.div`
   & > * {
     margin-bottom: 2rem;
   }
+  @media only screen and (max-width: 800px) {
+    & > * {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+  }
 `;
 export const Post = styled.div`
   display: flex;

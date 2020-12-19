@@ -73,7 +73,9 @@ const PostById = () => {
           {data?.GetPostById.post && !loading ? (
             <Post>
               <EitherSideofPost>
-                <SecondaryHeading>
+                <SecondaryHeading
+                  style={{ marginLeft: '1rem', marginTop: '1rem' }}
+                >
                   {data.GetPostById.post.description}
                 </SecondaryHeading>
               </EitherSideofPost>
