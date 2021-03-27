@@ -18,6 +18,7 @@ import {
 } from '../../../components/posts.style';
 import SVG from '../../../components/svg';
 import { useGetPostByIdQuery } from '../../../generated/graphql';
+import useDetectDevice from '../../../libs/useDetectDevice';
 import withApollo from '../../../libs/withApollo';
 const PostById = () => {
   const router = useRouter();
@@ -25,9 +26,12 @@ const PostById = () => {
   const { id: userId } = router.query;
   const id = parseInt(userId as string);
   const { data, loading, error } = useGetPostByIdQuery({ variables: { id } });
-
+  const { isDesktop } = useDetectDevice();
   const webShareHandler = async (id: number, username: string) => {
     try {
+      if (isDesktop) {
+        window.location = (`https://twitter.com/share?url=https://setupy-web.vercel.app/posts/${username}/${id}&text=Check out this hot post by ${username}` as unknown) as Location;
+      }
       await navigator.share({
         title: 'Setupy - Posts🔥',
         text: 'Check out this sweet setup',

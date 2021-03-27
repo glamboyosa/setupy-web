@@ -26,6 +26,7 @@ import {
   useGetPostsByUserQuery,
   useLogoutMutation,
 } from '../../../generated/graphql';
+import useDetectDevice from '../../../libs/useDetectDevice';
 import { Context } from '../../../libs/userProvider';
 import withApollo from '../../../libs/withApollo';
 const PostsByUser = () => {
@@ -38,12 +39,16 @@ const PostsByUser = () => {
     variables: { username: username as string },
   });
   const { user, setUserHandler } = useContext(Context);
+  const { isDesktop } = useDetectDevice();
   const logoutHandler = () => {
     logoutMutation();
     setUserHandler(null);
   };
   const webShareHandler = async (id: number) => {
     try {
+      if (isDesktop) {
+        window.location = (`https://twitter.com/share?url=https://setupy-web.vercel.app/posts/${username}/${id}&text=Check out this hot post by ${username}` as unknown) as Location;
+      }
       await navigator.share({
         title: 'Setupy - Posts🔥',
         text: 'Check out this sweet setup',
@@ -67,8 +72,6 @@ const PostsByUser = () => {
   if (webShareError) {
     notify(webShareError);
   }
-  console.log(data);
-  console.log(getPostsByUsernameLoading);
 
   return (
     <>

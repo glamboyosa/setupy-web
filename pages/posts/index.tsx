@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { NavButton } from '../../components/button.style';
@@ -14,7 +14,6 @@ import { LinkToPages } from '../../components/links.style';
 import { Input, Label, Nav, NavItems } from '../../components/nav.style';
 import {
   CenterPosts,
-  DownButton,
   EitherSideofPost,
   Image,
   MarginTopImage,
@@ -23,16 +22,16 @@ import {
   RedditStyleDownVote,
   RedditStyleUpVote,
   ShareButton,
-  UpButton,
 } from '../../components/posts.style';
 import SVG from '../../components/svg';
 import {
+  useCreateVotesMutation,
   useGetPostsQuery,
   useLogoutMutation,
   useMeQuery,
-  useCreateVotesMutation,
 } from '../../generated/graphql';
 import { aggregatePosts } from '../../libs/aggregateVotes';
+import useDetectDevice from '../../libs/useDetectDevice';
 import { Context } from '../../libs/userProvider';
 import withApollo from '../../libs/withApollo';
 const Posts = () => {
@@ -50,6 +49,7 @@ const Posts = () => {
     voteMutation,
     { data: voteData, loading: voteLoading },
   ] = useCreateVotesMutation();
+  const { isDesktop } = useDetectDevice();
   useEffect(() => {
     if (voteData?.CreateVotes) {
       refetch();
@@ -61,6 +61,9 @@ const Posts = () => {
   };
   const webShareHandler = async (id: number, username: string) => {
     try {
+      if (isDesktop) {
+        window.location = (`https://twitter.com/share?url=https://setupy-web.vercel.app/posts/${username}/${id}&text=Check out this hot post by ${username}` as unknown) as Location;
+      }
       await navigator.share({
         title: 'Setupy - Posts🔥',
         text: 'Check out this sweet setup',
@@ -78,20 +81,6 @@ const Posts = () => {
   }
   if (logoutData?.Logout) {
     setUserHandler(null);
-  }
-  if (data?.GetPosts.error) {
-    return (
-      <Page>
-        <CenterPosts>
-          <SecondaryHeading>
-            looks like no one's posted anything yet.
-          </SecondaryHeading>
-          <Link href='/uploads'>
-            <LinkToPages>Be the first to upload</LinkToPages>
-          </Link>
-        </CenterPosts>
-      </Page>
-    );
   }
 
   const notify = (message: string, type: 'success' | 'error') =>
@@ -113,7 +102,6 @@ const Posts = () => {
     notify('there was a problem voting please try again', 'error');
   }
   if (error) {
-    console.log(error);
   }
   return (
     <>
@@ -183,6 +171,16 @@ const Posts = () => {
         <CenterPosts>
           <PrimaryHeading>See the hottest posts 🔥</PrimaryHeading>
         </CenterPosts>
+        {data?.GetPosts?.error && (
+          <CenterPosts>
+            <SecondaryHeading>
+              looks like no one's posted anything yet.
+            </SecondaryHeading>
+            <Link href='/uploads'>
+              <LinkToPages>Be the first to upload</LinkToPages>
+            </Link>
+          </CenterPosts>
+        )}
         <CenterPosts>
           {data && !loading ? (
             data!.GetPosts!.posts!.map((el) => (

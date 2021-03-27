@@ -58,6 +58,10 @@ export const Post = styled.div`
   max-width: 50rem;
   background-color: var(--white);
   box-shadow: 0.4rem 0.4rem 0.7rem var(--black);
+  transition: all 0.3s;
+  &:hover {
+    transform: translateY(-3px);
+  }
 `;
 export const ShareButton = styled(IoIosShareAlt)`
   font-size: 2rem;
