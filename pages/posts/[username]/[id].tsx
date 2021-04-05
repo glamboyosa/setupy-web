@@ -31,6 +31,7 @@ const PostById = () => {
     try {
       if (isDesktop) {
         window.location = (`https://twitter.com/share?url=https://setupy-web.vercel.app/posts/${username}/${id}&text=Check out this hot post by ${username}` as unknown) as Location;
+        return;
       }
       await navigator.share({
         title: 'Setupy - Posts🔥',

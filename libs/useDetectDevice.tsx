@@ -12,5 +12,5 @@ export default function useDetectDevice() {
       isDesktop.current = true;
     }
   }, []);
-  return { isDesktop };
+  return { isDesktop: isDesktop.current };
 }
